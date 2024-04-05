@@ -22,6 +22,7 @@ export default function Home() {
   const [name, setName] = useState('');
   const [address, setAddress] = useState('');
   const [candidateId, setCandidateId] = useState(0);
+  const [connecting,setConnecting] = useState(false);
 
   const handleNameChange = (event) => {
     setName(event.target.value);
@@ -35,105 +36,113 @@ export default function Home() {
     setCandidateId(event.target.value);
   };
 
+  const initialize = async () => {
+    setConnecting(true);
+    // Check if web3 is injected by the browser (Mist/MetaMask)
+    if (typeof window.ethereum !== 'undefined') {
+      try {
+        // Request account access
+        await window.ethereum.request({ method: 'eth_requestAccounts' });
+        const web3 = new Web3(window.ethereum);
+        setWeb3(web3);
+
+        // Get the user's accounts
+        const accounts = await web3.eth.getAccounts();
+        setAccounts(accounts);
+
+        // Get the contract instance
+        const contract = new web3.eth.Contract(contractABI, contractAddress);
+        setContract(contract);
+        console.log("My address: ",accounts[0]);
+      } catch (error) {
+        console.error('Error initializing Web3:', error);
+        alert(
+          'An error occurred while initializing Web3. Please make sure you have MetaMask installed and try again.'
+        );
+      }
+      finally{
+        setConnecting(false);
+      }
+    } else {
+      console.log('Please install MetaMask!');
+      setConnecting(false);
+    }
+  };
+
   // useEffect(() => {
-  //   const initialize = async () => {
-  //     // Check if web3 is injected by the browser (Mist/MetaMask)
-  //     if (typeof window.ethereum !== 'undefined') {
-  //       try {
-  //         // Request account access
-  //         await window.ethereum.request({ method: 'eth_requestAccounts' });
-  //         const web3 = new Web3(window.ethereum);
-  //         setWeb3(web3);
-
-  //         // Get the user's accounts
-  //         const accounts = await web3.eth.getAccounts();
-  //         setAccounts(accounts);
-
-  //         // Get the contract instance
-  //         const contract = new web3.eth.Contract(contractABI, contractAddress);
-  //         setContract(contract);
-  //         console.log("My address: ",accounts[0]);
-  //       } catch (error) {
-  //         console.error('Error initializing Web3:', error);
-  //         alert(
-  //           'An error occurred while initializing Web3. Please make sure you have MetaMask installed and try again.'
-  //         );
-  //       }
-  //     } else {
-  //       console.log('Please install MetaMask!');
-  //     }
-  //   };
+    
 
   //   initialize();
   // }, []);
 
   const createCandidate = async () => {
   
-    // try {
+    try {
 
-    //   const txObject = {
-    //     from: accounts[0],
-    //     to: contractAddress,
-    //     data: contract.methods.addCandidate().encodeABI(),        
-    //     gas: 2000000, // Specify your desired gas limit
-    //   };
-    //   const txHash = await web3.eth.sendTransaction(txObject);
-    //   console.log(txHash);
-    //   console.log("Candidate Created Successfully!");;
+      const txObject = {
+        from: accounts[0],
+        to: contractAddress,
+        data: contract.methods.addCandidate(name,address).encodeABI(),        
+        gas: 2000000, // Specify your desired gas limit
+      };
+      const txHash = await web3.eth.sendTransaction(txObject);
+      console.log(txHash);
+      console.log("Candidate Created Successfully!");;
       
-    // } catch (error) {
-    //   console.error('Error:', error);
-    //   alert("There was an error!");
-    // }
+    } catch (error) {
+      console.error('Error:', error);
+      alert("There was an error!");
+    }
   };
 
   const castVote = async () => {
   
-    // try {
+    try {
 
-    //   const txObject = {
-    //     from: accounts[0],
-    //     to: contractAddress,
-    //     data: contract.methods.castVote(1).encodeABI(),        
-    //     gas: 2000000, // Specify your desired gas limit
-    //   };
-    //   const txHash = await web3.eth.sendTransaction(txObject);
-    //   console.log(txHash);
-    //   console.log("Vote Cast Successfully!");
+      const txObject = {
+        from: accounts[0],
+        to: contractAddress,
+        data: contract.methods.castVote(1).encodeABI(),        
+        gas: 2000000, // Specify your desired gas limit
+      };
+      const txHash = await web3.eth.sendTransaction(txObject);
+      console.log(txHash);
+      console.log("Vote Cast Successfully!");
       
-    // } catch (error) {
-    //   console.error('Error:', error);
-    //   alert("There was an error!");
-    // }
+    } catch (error) {
+      console.error('Error:', error);
+      alert("There was an error!");
+    }
   };
 
   const getAllCandidates = async () => {
-    // try {
-    //   const candidatesCount = 2;
-    //   const candidatesArray = [];
-    //   for (let i = 1; i <= candidatesCount; i++) {
-    //     const candidate = await contract.methods.getCandidate(i).call();
-    //     candidatesArray.push({
-    //       id: i,
-    //       address: candidate[0],
-    //       name: candidate[1],
-    //       voteCount: candidate[2]
-    //     });
-    //   }
-    //   setCandidates(candidatesArray);
-    //   console.log(candidatesArray);
-    // } catch (error) {
-    //   console.error(error);
-    // }
+    try {
+      const candidatesCount = parseInt(await contract.methods.getCandidateCount().call());
+      console.log("Count of Candidates: ",candidatesCount);
+      const candidatesArray = [];
+      for (let i = 1; i <= candidatesCount; i++) {
+        const candidate = await contract.methods.getCandidate(i).call();
+        candidatesArray.push({
+          id: i,
+          address: candidate[0],
+          name: candidate[1],
+          voteCount: candidate[2]
+        });
+      }
+      setCandidates(candidatesArray);
+      console.log(candidatesArray);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const getWinner = async () => {
-    // try {
-    //   const winner = await contract.methods.getWinner().call();
-    //   console.log(winner);
-    // } catch (error) {
-    //   console.error(error);
-    // }
+    try {
+      const winner = await contract.methods.getWinner().call();
+      console.log(winner);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   
@@ -223,7 +232,7 @@ export default function Home() {
         </Dialog>
       </header>
 
-      <div className="relative isolate px-6 pt-14 lg:px-8">
+      {!(connecting) && (contract!==null) && <div className="relative isolate px-6 pt-14 lg:px-8">
         <div
           className="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"
           aria-hidden="true"
@@ -314,7 +323,11 @@ export default function Home() {
             }}
           />
         </div>
-      </div>
+      </div>}
+      {connecting && (contract===null) && <h1>Loading..</h1>}
+      {!(connecting) && (contract===null) &&<button onClick={initialize}className="text-sm font-semibold leading-6 text-gray-900">
+                Initialize <span aria-hidden="true"></span>
+              </button>}
     </div>
   )
 }

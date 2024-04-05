@@ -22,7 +22,6 @@ export default function Home() {
   const [name, setName] = useState('');
   const [address, setAddress] = useState('');
   const [candidateId, setCandidateId] = useState(0);
-  const [connecting,setConnecting] = useState(false);
 
   const handleNameChange = (event) => {
     setName(event.target.value);
@@ -36,44 +35,37 @@ export default function Home() {
     setCandidateId(event.target.value);
   };
 
-  const initialize = async () => {
-    setConnecting(true);
-    // Check if web3 is injected by the browser (Mist/MetaMask)
-    if (typeof window.ethereum !== 'undefined') {
-      try {
-        // Request account access
-        await window.ethereum.request({ method: 'eth_requestAccounts' });
-        const web3 = new Web3(window.ethereum);
-        setWeb3(web3);
+  useEffect(() => {
+    const initialize = async () => {
+      // Check if web3 is injected by the browser (Mist/MetaMask)
+      if (typeof window.ethereum !== 'undefined') {
+        try {
+          // Request account access
+          await window.ethereum.request({ method: 'eth_requestAccounts' });
+          const web3 = new Web3(window.ethereum);
+          setWeb3(web3);
 
-        // Get the user's accounts
-        const accounts = await web3.eth.getAccounts();
-        setAccounts(accounts);
+          // Get the user's accounts
+          const accounts = await web3.eth.getAccounts();
+          setAccounts(accounts);
 
-        // Get the contract instance
-        const contract = new web3.eth.Contract(contractABI, contractAddress);
-        setContract(contract);
-        console.log("My address: ",accounts[0]);
-      } catch (error) {
-        console.error('Error initializing Web3:', error);
-        alert(
-          'An error occurred while initializing Web3. Please make sure you have MetaMask installed and try again.'
-        );
+          // Get the contract instance
+          const contract = new web3.eth.Contract(contractABI, contractAddress);
+          setContract(contract);
+          console.log("My address: ",accounts[0]);
+        } catch (error) {
+          console.error('Error initializing Web3:', error);
+          alert(
+            'An error occurred while initializing Web3. Please make sure you have MetaMask installed and try again.'
+          );
+        }
+      } else {
+        console.log('Please install MetaMask!');
       }
-      finally{
-        setConnecting(false);
-      }
-    } else {
-      console.log('Please install MetaMask!');
-      setConnecting(false);
-    }
-  };
+    };
 
-  // useEffect(() => {
-    
-
-  //   initialize();
-  // }, []);
+    initialize();
+  }, []);
 
   const createCandidate = async () => {
   
@@ -232,7 +224,7 @@ export default function Home() {
         </Dialog>
       </header>
 
-      {!(connecting) && (contract!==null) && <div className="relative isolate px-6 pt-14 lg:px-8">
+      <div className="relative isolate px-6 pt-14 lg:px-8">
         <div
           className="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"
           aria-hidden="true"
@@ -323,11 +315,7 @@ export default function Home() {
             }}
           />
         </div>
-      </div>}
-      {connecting && (contract===null) && <h1>Loading..</h1>}
-      {!(connecting) && (contract===null) &&<button onClick={initialize}className="text-sm font-semibold leading-6 text-gray-900">
-                Initialize <span aria-hidden="true"></span>
-              </button>}
+      </div>
     </div>
   )
 }

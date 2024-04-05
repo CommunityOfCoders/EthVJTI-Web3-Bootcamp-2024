@@ -65,7 +65,7 @@ contract Voting{
         return (thisCandidate.candidateAddress,thisCandidate.candidateName,thisCandidate.candidateVoteCount);
     }
 
-    function getWinner() public view  {
+    function getWinner() public view returns(uint256)  {
         uint256 max_votes = Candidates[1].candidateVoteCount;
         uint256 winner_candidate = 1;
         for (uint256 i = 2; i <= numCandidates; i++) 
@@ -75,7 +75,7 @@ contract Voting{
                 winner_candidate = i;
             }
         }
-        getCandidate(winner_candidate);
+        return winner_candidate;
     }
 
 

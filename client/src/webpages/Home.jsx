@@ -23,14 +23,7 @@ export default function Home() {
   const { web3, accounts, contract } = useWeb3();
 
 
-  const getWinner = async () => {
-    try {
-      const winner = await contract.methods.getWinner().call();
-      console.log(winner);
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  
 
   
 

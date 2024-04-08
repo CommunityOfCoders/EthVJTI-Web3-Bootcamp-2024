@@ -17,9 +17,6 @@ Resources for Web3 Bootcamp 2024 organized by EthVJTI
  ┃ ┃ ┗ 📜package.json             
  ┃ ┃ ┗ 📜tailwind.config.js
  ┃ ┃ ┗ 📜README.md
- ┣ 📂recordings-and-PPTs    # Contains the bootcamp 
- ┃                             Recordings & PPTs links 
- ┃ ┗ 📜README.md
  ┣ 📂hardhat                # Contains the Hardhat project 
  ┃                             created in day 3 deployment
  ```
@@ -27,6 +24,10 @@ Resources for Web3 Bootcamp 2024 organized by EthVJTI
  ## Developer Setup ⚒
 
  Check out how to [deploy the contract to **Ethereum Sepolia Testnet**](deVote-Voting-dApp/contracts/README.md) and how to  [run the dApp on your local system](deVote-Voting-dApp/client/README.md).
+
+ ## Slides & Recordings
+
+ View the presentations and recordings using your VJTI Email ID [**here**](https://drive.google.com/drive/folders/12IxeFOUXy5T9AhFNIULlJGB4hPOFXXWw?usp=drive_link)
 
  ## 👩‍💻Contributors
 - [**@Unmani Shinde**](https://github.com/unmani-shinde)

@@ -1,0 +1,11 @@
+{
+  "name": "ethvjti-web3-bootcamp-2024",
+  "version": "1.0.0",
+  "description": "Resources for Web3 Bootcamp 2024 organized by EthVJTI",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}

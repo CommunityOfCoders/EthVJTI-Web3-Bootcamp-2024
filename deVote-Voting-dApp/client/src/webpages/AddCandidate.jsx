@@ -3,8 +3,7 @@ import { useEffect, useState } from "react";
 import { Button, Checkbox, Label, Modal, TextInput,Spinner } from "flowbite-react";
 import { contractAddress } from '../contract_data/contract_address';
 import { useWeb3 } from '../provider_config/provider';
-import { HiEye, HiInformationCircle } from "react-icons/hi";
-import { Alert } from "flowbite-react";
+
 
 
 function AddCandidate() {

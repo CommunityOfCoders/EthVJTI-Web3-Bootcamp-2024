@@ -1,18 +1,15 @@
-import { Fragment,useState,useEffect} from 'react'
-import { Disclosure, Menu, Transition } from '@headlessui/react'
-import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
+import {useState,useEffect} from 'react'
+
 import { useWeb3 } from '../provider_config/provider';
 import CandidateCard from '../components/CandidateCard'
 import NavigationBar from '../components/NavigationBar';
 
-
-
-const user = {
-  name: 'Tom Cook',
-  email: 'tom@example.com',
-  imageUrl:
-    'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-}
+// const user = {
+//   name: 'Tom Cook',
+//   email: 'tom@example.com',
+//   imageUrl:
+//     'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+// }
 export const navigation = [
   
   { name: 'Home', href: '/', current: false },
@@ -20,15 +17,15 @@ export const navigation = [
   { name: 'Add Candidate', href: '/add', current: false },
   { name: 'Check Winner', href: '/winner', current: false },
 ]
-const userNavigation = [
-  { name: 'Your Profile', href: '#' },
-  { name: 'Settings', href: '#' },
-  { name: 'Sign out', href: '#' },
-]
+// const userNavigation = [
+//   { name: 'Your Profile', href: '#' },
+//   { name: 'Settings', href: '#' },
+//   { name: 'Sign out', href: '#' },
+// ]
 
-function classNames(...classes) {
-  return classes.filter(Boolean).join(' ')
-}
+// function classNames(...classes) {
+//   return classes.filter(Boolean).join(' ')
+// }
 
 export default function ViewCandidates() {
 

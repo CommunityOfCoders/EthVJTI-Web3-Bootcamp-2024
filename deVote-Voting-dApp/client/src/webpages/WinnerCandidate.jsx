@@ -1,9 +1,7 @@
+import { useWeb3 } from '../provider_config/provider';
+import { useState,useEffect } from "react";
 import NavigationBar from "../components/NavigationBar";
 import CandidateCard from "../components/CandidateCard";
-import { useWeb3 } from '../provider_config/provider';
-import { contractAddress } from '../contract_data/contract_address';
-import { contractABI } from '../contract_data/contract_ABI';
-import { useState,useEffect } from "react";
 
 function WinnerCandidate() {
     const { web3, accounts, contract } = useWeb3();

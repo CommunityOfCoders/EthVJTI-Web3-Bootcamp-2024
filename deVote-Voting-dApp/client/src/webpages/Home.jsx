@@ -1,11 +1,8 @@
-import { useState,useEffect,useNavigate } from 'react'
+import { useState} from 'react'
 import { Dialog } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 // import Web3 from 'web3';
 import { navigation } from './ViewCandidates';
-import { useWeb3 } from '../provider_config/provider';
-import { contractAddress } from '../contract_data/contract_address';
-import { contractABI } from '../contract_data/contract_ABI';
 
 // const navigation = [
 //   { name: 'Product', href: '#' },
@@ -18,13 +15,6 @@ import { contractABI } from '../contract_data/contract_ABI';
 
 export default function Home() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [winner,setWinner] = useState(null);
-
-  const { web3, accounts, contract } = useWeb3();
-
-
-  
-
   
 
   return (
@@ -32,7 +22,7 @@ export default function Home() {
       <header className="absolute inset-x-0 top-0 z-50">
         <nav className="flex items-center justify-between p-6 lg:px-8" aria-label="Global">
           <div className="flex lg:flex-1">
-            <a href="#" className="-m-1.5 p-1.5">
+            <a href="/" className="-m-1.5 p-1.5">
               <span className="sr-only">Your Company</span>
               {/* <img
                 className="h-8 w-auto"
@@ -68,7 +58,7 @@ export default function Home() {
           <div className="fixed inset-0 z-50" />
           <Dialog.Panel className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
             <div className="flex items-center justify-between">
-              <a href="#" className="-m-1.5 p-1.5">
+              <a href="/" className="-m-1.5 p-1.5">
                 <span className="sr-only">Your Company</span>
                 <img
                   className="h-8 w-auto"
@@ -100,7 +90,7 @@ export default function Home() {
                 </div>
                 <div className="py-6">
                   <a
-                    href="#"
+                    href="/"
                     className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                   >
                     Log in

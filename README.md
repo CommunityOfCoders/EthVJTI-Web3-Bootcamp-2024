@@ -27,7 +27,7 @@ Resources for Web3 Bootcamp 2024 organized by EthVJTI
 
  ## Slides & Recordings
 
- View the presentations and recordings using your VJTI Email ID [**here**](https://drive.google.com/drive/folders/12IxeFOUXy5T9AhFNIULlJGB4hPOFXXWw?usp=drive_link)
+ View the presentations and recordings using your VJTI Email ID [**here**](https://drive.google.com/drive/folders/12IxeFOUXy5T9AhFNIULlJGB4hPOFXXWw?usp=sharing)
 
  ## 👩‍💻Contributors
 - [**@Unmani Shinde**](https://github.com/unmani-shinde)
